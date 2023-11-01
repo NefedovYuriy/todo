@@ -8,6 +8,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Welcome to the club buddy
+          <br/>
+          <span>
+            remember first steps!
+          </span>
+          <br/>info: "European Computer Manufacturers Association"
         </p>
         <a
           className="App-link"
