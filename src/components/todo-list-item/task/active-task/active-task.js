@@ -1,6 +1,6 @@
 import React from "react";
 import InputItem from "../../input-item";
-import './active-task.css' // на потом) 
+import './active-task.css';
 
 const ActiveTask = () => {
     return (
