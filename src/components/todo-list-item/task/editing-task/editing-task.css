@@ -1,0 +1,3 @@
+.todo-list li.editing:last-child {
+	margin-bottom: -1px;
+}
