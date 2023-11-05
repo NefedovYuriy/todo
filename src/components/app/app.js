@@ -1,20 +1,15 @@
 import React from 'react';
-import AppHeader from '../app-header';
-import SearchPanel from '../search-panel';
-import TodoList from '../todo-list';
+import Header from '../header';
+import Main from '../main';
+import './app.css'
 
 const App = () => {
-    const todoDate = [
-        {label: 'Do some work', important: false, id: 1},
-        {label: 'Create App', important: true, id: 2},
-        {label: 'Sell Awesome App', important: true, id: 3}
-    ];
+    
     return (
-    <div className = 'app'>
-        <AppHeader/>
-        <SearchPanel/>
-        <TodoList todos ={todoDate}/>
-    </div>
+    <section className = 'todo-app'>
+        <Header/>
+        <Main/>
+    </section>
     )
 }
 
