@@ -4,10 +4,12 @@ import TodoList from '../todo-list';
 import './main.css'
 
 
-const Main = () => {
+
+const Main = ({todos}) => {
+   
     return (
     <section className="main">
-        <TodoList/>
+        <TodoList todos = {todos}/>
         <Footer/>
       </section>
     )

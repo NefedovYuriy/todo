@@ -3,19 +3,12 @@ import React from 'react';
 import './todo-list.css'
 import TodoListItem from '../todo-list-item/todo-list-item';
 
-const objProp = [
-  {},
-  {},
-  {}
-]
 
-const TodoList = () => {
-   
+
+const TodoList = ({todos}) => {
     return(
         <ul className="todo-list">
-          <TodoListItem/>
-          <TodoListItem label = 'asdasd'/>
-          <TodoListItem/>
+          <TodoListItem todos = {todos}/>
         </ul>
     )
 };
