@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchPanel from '../search-panel';
+import NewTaskForm from '../new-task-form';
 
 
 const Header = () => {
     return <header className = 'header'>
         <h1 >todos</h1>
-        <SearchPanel/>
+        <NewTaskForm/>
     </header>
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from '../footer';
-import TodoList from '../todo-list';
+import TaskList from '../task-list';
 import './main.css'
 
 
@@ -9,7 +9,7 @@ const Main = ({todos}) => {
    
     return (
     <section className="main">
-        <TodoList todos = {todos}/>
+        <TaskList todos = {todos}/>
         <Footer/>
       </section>
     )

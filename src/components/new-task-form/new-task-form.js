@@ -1,8 +1,8 @@
 import React from "react";
-import './search-panel.css'
+import './new-task-form.css'
 
-const SearchPanel = () => {
+const NewTaskForm = () => {
     return <input class="new-todo" placeholder="What needs to be done?" autofocus></input>
 }
 
-export default SearchPanel;
+export default NewTaskForm;

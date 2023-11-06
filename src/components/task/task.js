@@ -1,10 +1,9 @@
 import React from 'react';
-import './todo-list-item.css';
+import './task.css';
 import InputItem from './input-item';
 
-const TodoListItem = ({todos}) => {
-    const task = todos.map((elem) => {
-        console.log(elem.description)
+const Task = ({todos}) => {
+    const arrTodos = todos.map((elem) => {
         if (elem.className === 'editing') {
             return (
                 <li className={elem.className}>
@@ -40,9 +39,9 @@ const TodoListItem = ({todos}) => {
     
     return (
         <div>
-            {task}
+            {arrTodos}
         </div>
     )
 };
 
-export default TodoListItem;
+export default Task;
