@@ -31,6 +31,11 @@ export default class App extends Component {
         id: 3,
       },
     ],
+    activeTab: "All"
+  };
+
+  handleTabChange = (tabName) => {
+    this.setState({ activeTab: tabName });
   };
   onCompleteTask = (id) => {
     const chengedTasks = this.state.arrProp.map((elem) => {
@@ -42,11 +47,37 @@ export default class App extends Component {
     const filteredTasks = this.state.arrProp.filter((elem) => elem.id !== id);
     this.setState({ arrProp: filteredTasks });
   };
+  onAllDeleteTask = () => {
+    const filteredTasks = this.state.arrProp.filter((elem) => !elem.id );
+    this.setState({ arrProp: filteredTasks });
+  };
+  onCreateTask = (newTask) => {
+    this.setState(prevState => ({
+      arrProp: [...prevState.arrProp, newTask]
+    }));
+  }
   render (){
+    const { arrProp, activeTab } = this.state;
+
+    let filteredTasks;
+
+    if (activeTab === "All") {
+      filteredTasks = arrProp;
+    } else if (activeTab === "Active") {
+      filteredTasks = arrProp.filter((task) => !task.completed);
+    } else if (activeTab === "Completed") {
+      filteredTasks = arrProp.filter((task) => task.completed);
+    }
     return (
       <section className = 'todo-app'>
-          <Header/>
-          <Main task = {this.state} onCompleteTask = {this.onCompleteTask} onDeleteTask = {this.onDeleteTask}/>
+          <Header onCreateTask = {this.onCreateTask}/>
+          <Main 
+          task = {filteredTasks} 
+          onCompleteTask = {this.onCompleteTask} 
+          onDeleteTask = {this.onDeleteTask}
+          activeTab={activeTab} 
+          onTabChange={this.handleTabChange}
+          onAllDeleteTask = {this.onAllDeleteTask}/>
       </section>
       )
   }

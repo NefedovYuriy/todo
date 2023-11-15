@@ -7,7 +7,7 @@ export default class TaskList extends Component {
   render() {
     return (
       <ul className="todo-list">
-        {this.props.task.arrProp.map((elem) => {
+        {this.props.task.map((elem) => {
           return (
             <Task
               key={elem.id}

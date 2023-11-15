@@ -1,15 +1,21 @@
-import React from "react";
+import React, { Component } from "react";
 import "./footer.css";
 import TaskFilter from "./task-filter";
 
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <span className="todo-count">1 items left</span>
-      <TaskFilter />
-      <button className="clear-completed">Clear completed</button>
-    </footer>
-  );
+export default class Footer extends Component {
+  
+  render(){
+    let arrCompletedTask = this.props.task.filter((elem) => elem.completed)
+  
+    return (
+      <footer className="footer">
+        <span className="todo-count">{arrCompletedTask.length}</span>
+        <TaskFilter 
+        activeTab={this.props.activeTab} 
+        onTabChange={this.props.onTabChange}/>
+        <button className="clear-completed" onClick={this.props.onAllDeleteTask}>Clear completed</button>
+      </footer>
+    );
+  }
 };
 
-export default Footer;

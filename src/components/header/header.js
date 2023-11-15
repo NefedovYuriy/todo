@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import NewTaskForm from "../new-task-form";
 
-const Header = () => {
-  return (
-    <header className="header">
-      <h1>todos</h1>
-      <NewTaskForm />
-    </header>
-  );
+export default class Header extends Component{
+  render(){
+    return (
+      <header className="header">
+        <h1>todos</h1>
+        <NewTaskForm onCreateTask = {this.props.onCreateTask}/>
+      </header>
+    );
+  }
+  
 };
 
-export default Header;
