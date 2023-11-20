@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 
-export default class Tabs extends Component {
+export class Tabs extends Component {
   render() {
     const { activeTab, onTabChange } = this.props;
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import './task-list.css';
-import { Task } from '../task';
+import { Task } from '../Task';
 
-export default class TaskList extends Component {
+export class TaskList extends Component {
   render() {
     return (
       <ul className="todo-list">

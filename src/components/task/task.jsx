@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
+import { formatDistanceToNow } from 'date-fns';
 
 import './task.css';
-import { CustomInput } from './сustom-input';
+import { CustomInput } from './CustomInput';
 
 export class Task extends Component {
   constructor(props) {
@@ -27,14 +28,17 @@ export class Task extends Component {
 
   render() {
     const { elem } = this.props;
+
     return (
       <Fragment>
         <li className={elem.completed ? 'completed' : 'active'}>
           <div className="view">
             <CustomInput handleClick={this.props.onCompleteTask} id={elem.id} />
             <label>
-              <span className="description">{elem.description || this.props.description}</span>
-              <span className="created">{elem.creationTime}</span>
+              <span className="description">{elem.description || this.defaultProps.description}</span>
+              <span className="created">{`created ${formatDistanceToNow(elem.creationTime, {
+                addSuffix: true,
+              })}`}</span>
             </label>
             <button className="icon icon-edit"></button>
             <button className="icon icon-destroy" onClick={() => this.props.onDeleteTask(elem.id)}></button>

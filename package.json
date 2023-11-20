@@ -20,7 +20,8 @@
     "lint:eslint": "eslint --ext .js,.jsx src",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "format": "prettier --write \"**/*.{js,jsx}\""
+    "format": "prettier --write \"**/*.{js,jsx}\"",
+    "deploy": "now --prod"
   },
   "husky": {
     "hooks": {

@@ -21,7 +21,7 @@ export class NewTaskForm extends Component {
     const newTask = {
       className: 'active',
       description: this.state.taskDescription,
-      creationTime: ['created ', this.props.distance],
+      creationTime: new Date(),
       completed: false,
       editing: false,
       id: Date.now(),

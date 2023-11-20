@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { formatDistanceToNow } from 'date-fns';
 
-import { Header } from '../header';
-import { Main } from '../main';
+import { Header } from '../Header';
+import { Main } from '../Main';
 
 import './app.css';
 
@@ -14,7 +13,7 @@ export class App extends Component {
         {
           className: 'completed',
           description: 'Completed task',
-          creationTime: 'created 17 seconds ago',
+          creationTime: new Date(),
           completed: false,
           editing: false,
           id: 1,
@@ -22,7 +21,7 @@ export class App extends Component {
         {
           className: 'editing',
           description: 'Editing task',
-          creationTime: 'created 5 minutes ago',
+          creationTime: new Date(),
           completed: false,
           editing: false,
           id: 2,
@@ -30,7 +29,7 @@ export class App extends Component {
         {
           className: 'active',
           description: 'Active task',
-          creationTime: 'created 5 minutes ago',
+          creationTime: new Date(),
           completed: false,
           editing: false,
           id: 3,
@@ -41,7 +40,7 @@ export class App extends Component {
     this.onDeleteTask = this.onDeleteTask.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
     this.onCompleteTask = this.onCompleteTask.bind(this);
-    this.onAllDeleteTask = this.onAllDeleteTask.bind(this);
+    this.onDeleteCompletedTask = this.onDeleteCompletedTask.bind(this);
     this.onCreateTask = this.onCreateTask.bind(this);
   }
 
@@ -58,8 +57,8 @@ export class App extends Component {
     const filteredTasks = this.state.arrProp.filter((elem) => elem.id !== id);
     this.setState({ arrProp: filteredTasks });
   }
-  onAllDeleteTask() {
-    const filteredTasks = this.state.arrProp.filter((elem) => !elem.id);
+  onDeleteCompletedTask() {
+    const filteredTasks = this.state.arrProp.filter((elem) => !elem.completed);
     this.setState({ arrProp: filteredTasks });
   }
   onCreateTask(newTask) {
@@ -69,8 +68,6 @@ export class App extends Component {
   }
   render() {
     const { arrProp, activeTab } = this.state;
-    const date = new Date();
-    const distance = formatDistanceToNow(date, { addSuffix: true });
     let filteredTasks;
 
     if (activeTab === 'All') {
@@ -82,14 +79,14 @@ export class App extends Component {
     }
     return (
       <section className="todo-app">
-        <Header onCreateTask={this.onCreateTask} distance={distance} />
+        <Header onCreateTask={this.onCreateTask} />
         <Main
           task={filteredTasks}
           onCompleteTask={this.onCompleteTask}
           onDeleteTask={this.onDeleteTask}
           activeTab={activeTab}
           onTabChange={this.handleTabChange}
-          onAllDeleteTask={this.onAllDeleteTask}
+          onDeleteCompletedTask={this.onDeleteCompletedTask}
         />
       </section>
     );

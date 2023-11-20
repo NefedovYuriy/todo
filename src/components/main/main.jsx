@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { Footer } from '../footer';
-import TaskList from '../task-list';
+import { Footer } from '../Footer';
+import { TaskList } from '../TaskList';
 import './main.css';
 
 export class Main extends Component {
@@ -16,7 +16,7 @@ export class Main extends Component {
         <Footer
           activeTab={this.props.activeTab}
           onTabChange={this.props.onTabChange}
-          onAllDeleteTask={this.props.onAllDeleteTask}
+          onDeleteCompletedTask={this.props.onDeleteCompletedTask}
           task={this.props.task}
         />
       </section>

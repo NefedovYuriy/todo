@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { NewTaskForm } from './new-task-form';
+import { NewTaskForm } from './NewTaskForm';
 
 export class Header extends Component {
   render() {
