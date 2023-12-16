@@ -12,27 +12,36 @@ export class App extends Component {
       arrProp: [
         {
           className: 'completed',
-          description: 'Completed task',
+          description: 'Completed',
           creationTime: new Date(),
           completed: false,
           editing: false,
+          min: 0,
+          sec: 0,
           id: 1,
+          timerId: null,
         },
         {
           className: 'editing',
-          description: 'Editing task',
+          description: 'Editing',
           creationTime: new Date(),
           completed: false,
           editing: false,
           id: 2,
+          min: 0,
+          sec: 0,
+          timerId: null,
         },
         {
           className: 'active',
-          description: 'Active task',
+          description: 'Active',
           creationTime: new Date(),
           completed: false,
           editing: false,
           id: 3,
+          min: 0,
+          sec: 0,
+          timerId: null,
         },
       ],
       activeTab: 'All',
@@ -66,6 +75,42 @@ export class App extends Component {
       arrProp: [...prevState.arrProp, newTask],
     }));
   }
+  setTimer = (id) => {
+    this.setState(({ arrProp }) => {
+      console.log(this.state.arrProp);
+      console.log(id);
+      const index = arrProp.findIndex((el) => el.id === id);
+      const oldItem = arrProp[index];
+      const { min, sec } = oldItem;
+      let newSec = sec - 1;
+      let newMin = min;
+      if (newSec < 0) {
+        if (newMin <= 0) {
+          newSec = 0;
+          newMin = 0;
+        } else {
+          newSec = 59;
+          newMin = min - 1;
+        }
+      }
+      const newArray = [
+        ...arrProp.slice(0, index),
+        { ...oldItem, min: newMin, sec: newSec },
+        ...arrProp.slice(index + 1),
+      ];
+      return { arrProp: newArray };
+    });
+  };
+
+  editTimerId = (id, timerId) => {
+    this.setState(({ arrProp }) => {
+      const index = arrProp.findIndex((el) => el.id === id);
+      const oldItem = arrProp[index];
+      const newDate = [...arrProp.slice(0, index), { ...oldItem, timerId }, ...arrProp.slice(index + 1)];
+      return { inputData: newDate };
+    });
+  };
+
   render() {
     const { arrProp, activeTab } = this.state;
     let filteredTasks;
@@ -87,6 +132,8 @@ export class App extends Component {
           activeTab={activeTab}
           onTabChange={this.handleTabChange}
           onDeleteCompletedTask={this.onDeleteCompletedTask}
+          setTimer={this.setTimer}
+          editTimerId={this.editTimerId}
         />
       </section>
     );

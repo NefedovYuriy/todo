@@ -13,6 +13,8 @@ export class TaskList extends Component {
             elem={elem}
             onCompleteTask={this.props.onCompleteTask}
             onDeleteTask={this.props.onDeleteTask}
+            setTimer={this.props.setTimer}
+            editTimerId={this.props.editTimerId}
           />
         ))}
       </ul>

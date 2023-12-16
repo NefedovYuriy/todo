@@ -1,7 +1,7 @@
 {
     "env": {
       "browser": true,
-      "es2021": true
+      "es2022": true
     },
     "ignorePatterns": ["node_modules", "dist", "build"],
     "extends": [
@@ -13,9 +13,10 @@
     ],
     "parserOptions": {
       "ecmaFeatures": {
-        "jsx": true
+        "jsx": true,
+        "ecmaVersion": 6
       },
-      "ecmaVersion": 12,
+      "ecmaVersion": 13,
       "sourceType": "module"
     },
     "plugins": ["react", "prettier", "import"],

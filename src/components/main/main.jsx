@@ -12,6 +12,8 @@ export class Main extends Component {
           task={this.props.task}
           onCompleteTask={this.props.onCompleteTask}
           onDeleteTask={this.props.onDeleteTask}
+          setTimer={this.props.setTimer}
+          editTimerId={this.props.editTimerId}
         />
         <Footer
           activeTab={this.props.activeTab}

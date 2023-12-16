@@ -1,1 +1,1 @@
-export { Task } from './Task.jsx';
+export { Task } from './Task';
