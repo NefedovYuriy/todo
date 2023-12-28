@@ -12,11 +12,9 @@ export const Timer = ({ initialTime }) => {
       setIsRunning(true);
       const intervalId = setInterval(() => {
         if (time > 0) {
-          setTime((prevState) => prevState - 1);
-          console.log(1);
+          setTime((prevState) => (prevState === 0 ? prevState : prevState - 1));
         }
       }, 1000);
-      console.log(intervalId);
       setTimer(intervalId);
     }
   };
@@ -26,6 +24,11 @@ export const Timer = ({ initialTime }) => {
     clearInterval(timer);
     setTimer(false);
   };
+  useEffect(() => {
+    if (time === 0) {
+      clearInterval(timer);
+    }
+  }, [time]);
 
   useEffect(() => {
     return () => {
