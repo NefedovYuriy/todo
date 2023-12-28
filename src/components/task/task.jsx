@@ -1,101 +1,56 @@
-import React, { Component, Fragment } from 'react';
-import { PropTypes } from 'prop-types';
+import React, { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 
+import { Timer } from '../Timer';
+
 import './task.css';
-import { CustomInput } from './CustomInput';
 
-export class Task extends Component {
-  constructor(props) {
-    super(props);
-    this.timer = props.elem.timerId;
+export const Task = ({ onEdited, onDeleted, todo, onDone, onToggleEdit, timer }) => {
+  const { id, label, done, date, edit } = todo;
+  const [labelState, setLabelState] = useState(label);
 
-    this.state = {
-      finalDelete: false,
-      isPlayed: Boolean(this.timer),
-    };
-  }
-
-  startTimer = () => {
-    const { setTimer, editTimerId, elem } = this.props;
-    this.timer = setInterval(() => {
-      setTimer(elem.id);
-    }, 1000);
-    editTimerId(this.timer);
-    this.setState({ isPlayed: true });
+  const onChangeLabel = (e) => {
+    setLabelState(e.target.value);
   };
 
-  pauseTimer = () => {
-    const { editTimerId, elem } = this.props;
-    editTimerId(elem.id, this.timer);
-    clearInterval(this.timer);
-    this.setState({ isPlayed: false });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (labelState !== '') {
+      onEdited(labelState);
+    } else {
+      onDeleted();
+    }
   };
-  componentWillUnmount() {
-    this.pauseTimer();
-  }
 
-  render() {
-    const { elem } = this.props;
-    const { isPlayed } = this.state;
-    const { id, description, completed, creationTime, min, sec } = elem;
-    return (
-      <Fragment>
-        <li className={completed ? 'completed' : 'active'}>
-          <div className="view">
-            <CustomInput handleClick={this.props.onCompleteTask} id={id} />
-            <label>
-              <span className="description">{description || this.defaultProps.description}</span>
-              <span className="created">
-                <button
-                  type="button"
-                  className="icon icon-play"
-                  onClick={this.startTimer}
-                  disabled={isPlayed}
-                  aria-label="play"
-                />
-                <button
-                  type="button"
-                  className="icon icon-pause"
-                  onClick={this.pauseTimer}
-                  disabled={!isPlayed}
-                  aria-label="pause"
-                />
-                {min.toString().padStart(2, '0')}:{sec.toString().padStart(2, '0')}
-              </span>
-              <span className="created">{`created ${formatDistanceToNow(creationTime, {
-                addSuffix: true,
-              })}`}</span>
-            </label>
+  const onKeyDownEsc = (e) => {
+    if (e.keyCode === 27) {
+      setLabelState(label);
+    }
+  };
 
-            <button className="icon icon-edit"></button>
-            <button className="icon icon-destroy" onClick={() => this.props.onDeleteTask(elem.id)}></button>
-          </div>
-          {elem.className === 'editing' ? <input type="text" className="edit" value="Editing task" /> : null}
-        </li>
-      </Fragment>
-    );
-  }
-}
+  const formElement = (
+    <form onSubmit={onSubmit} onKeyDown={onKeyDownEsc} role="presentation">
+      <input onChange={onChangeLabel} type="text" className="edit" value={labelState} />
+    </form>
+  );
 
-Task.defaultProps = {
-  description: 'Empty description',
-};
-
-Task.propTypes = {
-  elem: PropTypes.shape({
-    description: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    creationTime: PropTypes.date,
-    className: PropTypes.string.isRequired,
-    editing: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
-    timerId: PropTypes.number,
-    sec: PropTypes.number,
-    min: PropTypes.number,
-  }).isRequired,
-  onCompleteTask: PropTypes.func.isRequired,
-  onDeleteTask: PropTypes.func.isRequired,
-  setTimer: PropTypes.func.isRequired,
-  editTimerId: PropTypes.func.isRequired,
+  return (
+    <div>
+      <div className="view">
+        <input type="checkbox" checked={done} className="toggle" onChange={onDone} />
+        <label htmlFor={id}>
+          <span className="description" onClick={onDone} role="presentation">
+            {label}
+          </span>
+          <span className="created">
+            <Timer initialTime={timer} done={done} />
+          </span>
+          <span className="created">created {formatDistanceToNow(date, { includeSeconds: true })}</span>
+        </label>
+        <button aria-label="edit" type="button" className="icon icon-edit" onClick={onToggleEdit} />
+        <button aria-label="delete" type="button" className="icon icon-destroy" onClick={onDeleted} />
+      </div>
+      {edit ? formElement : null}
+    </div>
+  );
 };

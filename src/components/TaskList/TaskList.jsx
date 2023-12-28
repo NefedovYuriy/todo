@@ -1,23 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import './task-list.css';
 import { Task } from '../Task';
 
-export class TaskList extends Component {
-  render() {
+import './taskList.css';
+
+export function TaskList({ tasksNames, onDone, onDeleted, onEdited, onToggleEdit }) {
+  const elements = tasksNames.map((item) => {
+    const { id } = item;
+    let classNames = null;
+    if (item.done) {
+      classNames = 'completed';
+    }
+    if (item.edit) {
+      classNames = 'editing';
+    }
     return (
-      <ul className="todo-list">
-        {this.props.task.map((elem) => (
-          <Task
-            key={elem.id}
-            elem={elem}
-            onCompleteTask={this.props.onCompleteTask}
-            onDeleteTask={this.props.onDeleteTask}
-            setTimer={this.props.setTimer}
-            editTimerId={this.props.editTimerId}
-          />
-        ))}
-      </ul>
+      <li key={id} className={classNames}>
+        <Task
+          todo={item}
+          onDeleted={() => onDeleted(id)}
+          onDone={() => onDone(id)}
+          onEdited={(label) => onEdited(id, label)}
+          onToggleEdit={() => onToggleEdit(id)}
+          timer={item.timer}
+        />
+      </li>
     );
-  }
+  });
+
+  return <ul className="todo-list">{elements}</ul>;
 }
+
+TaskList.defaultProps = {
+  onDone: () => {},
+  onDeleted: () => {},
+  onEdited: () => {},
+  onToggleEdit: () => {},
+};
+
+TaskList.propTypes = {
+  onDone: PropTypes.func,
+  onDeleted: PropTypes.func,
+  onEdited: PropTypes.func,
+  onToggleEdit: PropTypes.func,
+};
